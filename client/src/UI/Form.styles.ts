@@ -12,6 +12,14 @@ export const FormContainer = styled.form`
 
 
 
-export const Button = styled.button``;
+export const Footer = styled.span`
 
-export const Footer = styled.span``;
+color: white;
+    text-transform: uppercase;
+    a {
+      color: #4e0eff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+`;

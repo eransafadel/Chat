@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, FormContainer, Footer } from "./Form.styles";
-
+import {FormContainer, Footer } from "./Form.styles";
+import Button from "./Button";
 import Input from "./Input";
 import { Link } from "react-router-dom";
 import TitleBrand from "./TitleBrand";
@@ -55,7 +55,7 @@ const Form = () => {
             handleChange(event)
           }
         />
-        <Button type="submit">Create User</Button>
+        <Button title="Create User"/>
         <Footer>
        
           Already have an account ? <Link to="/login">Login.</Link>

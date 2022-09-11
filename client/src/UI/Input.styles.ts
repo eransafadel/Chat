@@ -8,8 +8,11 @@ export const Wrapper = styled.input`
     color: white;
     width: 100%;
     font-size: 1rem;
+   
     &:focus {
       border: 0.1rem solid #997af0;
       outline: none;
     }
+
+   
 `;
