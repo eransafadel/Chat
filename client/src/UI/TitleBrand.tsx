@@ -8,7 +8,6 @@ const TitleBrand = () => {
     <Brand>
       <ImageTitle src={Logo} alt="Logo" />
       <TextTitle data-end=".">{TITLE_NAME}</TextTitle>
-
     </Brand>
   );
 };

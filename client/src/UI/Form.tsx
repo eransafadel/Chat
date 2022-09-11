@@ -1,15 +1,13 @@
 import React from "react";
-import {FormContainer, Footer } from "./Form.styles";
+import { FormContainer, Footer } from "./Form.styles";
 import Button from "./Button";
 import Input from "./Input";
 import { Link } from "react-router-dom";
 import TitleBrand from "./TitleBrand";
 
-
 // type FormProps = {
 //     children: React.ReactNode; // 👈️ type children
 //   };
-
 
 const Form = () => {
   const handleSumbit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,9 +18,13 @@ const Form = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
 
   return (
-        <>
-      <FormContainer onSubmit={(event: React.FormEvent<HTMLFormElement>) => handleSumbit(event)}>
-       <TitleBrand/>
+    <>
+      <FormContainer
+        onSubmit={(event: React.FormEvent<HTMLFormElement>) =>
+          handleSumbit(event)
+        }
+      >
+        <TitleBrand />
         <Input
           type="text"
           placeholder="Username"
@@ -55,13 +57,13 @@ const Form = () => {
             handleChange(event)
           }
         />
-        <Button title="Create User"/>
+
+        <Button title="Create User" />
         <Footer>
-       
           Already have an account ? <Link to="/login">Login.</Link>
         </Footer>
       </FormContainer>
-      </>
+    </>
   );
 };
 
