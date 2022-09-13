@@ -9,6 +9,8 @@ import { InputArr } from "../macros";
 import { User } from "../User";
 import { toast, ToastContainer,ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { publicRequest, registerRoute } from "../api/APIRoutes";
 
 const Form = () => {
   const [values, setValues] = useState<User>(new User("", "", "", ""));
@@ -19,11 +21,17 @@ const Form = () => {
     draggable: true,
     theme: "dark",
   };
-  const handleSumbit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSumbit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(handleValidation())
+    console.log(registerRoute);
     {
-      
+      const { password, confirmPassword, username, email } = values;
+      const {data} =  await publicRequest.post(registerRoute,{
+        username,
+        email,
+        password
+      })
     }
   };
 
@@ -59,7 +67,7 @@ const Form = () => {
     return true;
   };
 
-  console.log(values);
+
 
   return (
     <>
