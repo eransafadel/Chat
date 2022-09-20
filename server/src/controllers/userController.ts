@@ -25,6 +25,29 @@ export const register = async (
  
  const {password,...others} = user._doc;
  console.log(others);
-  return res.json({status:true,user});
+  return res.json({status:true,others});
 
 };
+
+
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, password:pass } = req.body;
+  const user = await User.findOne({ username:username });
+  if (!user)
+    return res.json({ msg: "Incorrect username or password", status: false });
+  const isPasswordValid = await bcrypt.compare(pass,user.password);
+  console.log(pass,user.password);
+if(!isPasswordValid)
+  return res.json({ msg: "Incorrect username or password", status: false });
+  
+
+ 
+ const {password,...others} = user._doc;
+  return res.json({status:true,others});
+
+};
+

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { FormContainer, Footer } from "./Form.styles";
+import { FormContainer, Footer } from "./FormRegister.styles";
 import Button from "./Button";
 import Input from "./Input";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import TitleBrand from "./TitleBrand";
 
-import { InputArr } from "../macros";
+import { EMPTY, InputArr, PASSWORD_LENGTH, USERNAME_LENGTH } from "../macros";
 import { User } from "../User";
 import { toast, ToastContainer,ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
 import { publicRequest, registerRoute } from "../api/APIRoutes";
 
-const Form = () => {
+const FormRegister = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState<User>(new User("", "", "", ""));
   const toastOptions:ToastOptions  = {
     position: "bottom-right",
@@ -24,14 +24,25 @@ const Form = () => {
   const handleSumbit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(handleValidation())
-    console.log(registerRoute);
+    
     {
-      const { password, confirmPassword, username, email } = values;
+      const { password, username, email } = values;
       const {data} =  await publicRequest.post(registerRoute,{
         username,
         email,
         password
-      })
+      });
+
+      if(data.status === false)
+        toast.error(data.msg,toastOptions);
+        if(data.status === true){
+          localStorage.setItem('chat-app-user',JSON.stringify(data.others));
+          navigate("/");
+        }
+        
+      
+   
+      
     }
   };
 
@@ -47,19 +58,19 @@ const Form = () => {
         toastOptions
       );
       return false;
-    } else if (username.length < 3) {
+    } else if (username.length < USERNAME_LENGTH) {
       toast.error(
         "Username should be greater than 3 characters.",
         toastOptions
       );
       return false;
-    } else if (password.length < 8) {
+    } else if (password.length < PASSWORD_LENGTH) {
       toast.error(
         "Password should be equal or greater than 8 characters.",
         toastOptions
       );
       return false;
-    } else if (email === "") {
+    } else if (email === EMPTY) {
       toast.error("Email is required.", toastOptions);
       return false;
     }
@@ -99,4 +110,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormRegister;
