@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FormContainer, Footer } from "./FormRegister.styles";
 import Button from "./Button";
 import Input from "./Input";
 import { Link,useNavigate } from "react-router-dom";
 import TitleBrand from "./TitleBrand";
 
-import { EMPTY, InputArr, PASSWORD_LENGTH, USERNAME_LENGTH } from "../macros";
+import { EMPTY, InputArr, PASSWORD_LENGTH, USERNAME_LENGTH, USER_KEY_LCL_STRG } from "../macros";
 import { User } from "../User";
 import { toast, ToastContainer,ToastOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,6 +21,12 @@ const FormRegister = () => {
     draggable: true,
     theme: "dark",
   };
+
+  useEffect(()=>{
+    if(localStorage.getItem(USER_KEY_LCL_STRG))
+        navigate('/')
+
+  },[]);
   const handleSumbit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if(handleValidation())
@@ -36,7 +42,7 @@ const FormRegister = () => {
       if(data.status === false)
         toast.error(data.msg,toastOptions);
         if(data.status === true){
-          localStorage.setItem('chat-app-user',JSON.stringify(data.others));
+          localStorage.setItem(USER_KEY_LCL_STRG,JSON.stringify(data.others));
           navigate("/");
         }
         
